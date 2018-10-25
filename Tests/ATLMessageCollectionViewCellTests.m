@@ -65,8 +65,8 @@
                                      @"orientation": @(gif.imageOrientation) };
     NSData *JSONData = [NSJSONSerialization dataWithJSONObject:imageMetadata options:NSJSONWritingPrettyPrinted error:nil];
     LYRMessagePartMock *part2 = [LYRMessagePartMock messagePartWithMIMEType:ATLMIMETypeImageSize data:JSONData];
-    LYRMessageMock *messageMock1 = [LYRMessageMock newMessageWithParts:@[ part1, part2 ] senderID:[ATLUserMock userWithMockUserName:ATLMockUserNameKlemen].userID];
-    LYRMessageMock *messageMock2 = [LYRMessageMock newMessageWithParts:@[ [LYRMessagePartMock messagePartWithMIMEType:@"text/plain" data:[@"test" dataUsingEncoding:NSUTF8StringEncoding]] ]  senderID:[ATLUserMock userWithMockUserName:ATLMockUserNameKlemen].userID];
+    LYRMessageMock *messageMock1 = [LYRMessageMock newMessageWithParts:[NSSet setWithObjects:part1, part2, nil] senderID:[ATLUserMock userWithMockUserName:ATLMockUserNameKlemen].userID];
+    LYRMessageMock *messageMock2 = [LYRMessageMock newMessageWithParts:[NSSet setWithObject:[LYRMessagePartMock messagePartWithMIMEType:@"text/plain" data:[@"test" dataUsingEncoding:NSUTF8StringEncoding]]] senderID:[ATLUserMock userWithMockUserName:ATLMockUserNameKlemen].userID];
     
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(2);
 
@@ -104,8 +104,8 @@
                                      @"orientation": @(image.imageOrientation) };
     NSData *JSONData = [NSJSONSerialization dataWithJSONObject:imageMetadata options:NSJSONWritingPrettyPrinted error:nil];
     LYRMessagePartMock *part2 = [LYRMessagePartMock messagePartWithMIMEType:ATLMIMETypeImageSize data:JSONData];
-    LYRMessageMock *messageMock1 = [LYRMessageMock newMessageWithParts:@[ part1, part2 ] senderID:[ATLUserMock userWithMockUserName:ATLMockUserNameKlemen].userID];
-    LYRMessageMock *messageMock2 = [LYRMessageMock newMessageWithParts:@[ [LYRMessagePartMock messagePartWithMIMEType:@"text/plain" data:[@"test" dataUsingEncoding:NSUTF8StringEncoding]] ]  senderID:[ATLUserMock userWithMockUserName:ATLMockUserNameKlemen].userID];
+    LYRMessageMock *messageMock1 = [LYRMessageMock newMessageWithParts:[NSSet setWithObjects:part1, part2, nil] senderID:[ATLUserMock userWithMockUserName:ATLMockUserNameKlemen].userID];
+    LYRMessageMock *messageMock2 = [LYRMessageMock newMessageWithParts:[NSSet setWithObject:[LYRMessagePartMock messagePartWithMIMEType:@"text/plain" data:[@"test" dataUsingEncoding:NSUTF8StringEncoding]]] senderID:[ATLUserMock userWithMockUserName:ATLMockUserNameKlemen].userID];
     
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(2);
     

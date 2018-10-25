@@ -18,6 +18,7 @@
 //  limitations under the License.
 //
 
+#import <KIF/KIFAccessibilityEnabler.h>
 #import <XCTest/XCTest.h>
 #import <Atlas/Atlas.h>
 #import "ATLTestInterface.h"
@@ -44,6 +45,8 @@ extern NSString *const ATLAvatarViewAccessibilityLabel;
 - (void)setUp
 {
     [super setUp];
+    
+    KIFEnableAccessibility();
 
     ATLUserMock *mockUser = [ATLUserMock userWithMockUserName:ATLMockUserNameBlake];
     LYRClientMock *layerClient = [LYRClientMock layerClientMockWithAuthenticatedUserID:mockUser.userID];
@@ -337,7 +340,7 @@ extern NSString *const ATLAvatarViewAccessibilityLabel;
 
     // now send the message
     LYRMessagePart *part = [LYRMessagePart messagePartWithText:@"Test Message"];
-    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:@[part] options:nil error:nil];
+    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:part] options:nil error:nil];
     [conversation sendMessage:message error:nil];
 
     [delegateMock verify];

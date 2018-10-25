@@ -56,11 +56,11 @@
     LYRConversationMock *conversation = [client newConversationWithParticipants:participants options:nil error:nil];
     
     LYRMessagePartMock *messagePart1 = [LYRMessagePartMock messagePartWithText:@"How are you?"];
-    LYRMessageMock *message1 = [client newMessageWithParts:@[messagePart1] options:nil error:nil];
+    LYRMessageMock *message1 = [client newMessageWithParts:[NSSet setWithObject:messagePart1] options:nil error:nil];
     [conversation sendMessage:message1 error:nil];
     
     LYRMessagePartMock *messagePart2 = [LYRMessagePartMock messagePartWithText:@"I am well"];
-    LYRMessageMock *message2 = [client newMessageWithParts:@[messagePart2] options:nil error:nil];
+    LYRMessageMock *message2 = [client newMessageWithParts:[NSSet setWithObject:messagePart2] options:nil error:nil];
     [conversation sendMessage:message2 error:nil];
     
     LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
@@ -78,13 +78,13 @@
     LYRConversationMock *conversation1 = [client newConversationWithParticipants:participants options:nil error:nil];
     
     LYRMessagePartMock *messagePart1 = [LYRMessagePartMock messagePartWithText:@"How are you?"];
-    LYRMessageMock *message1 = [client newMessageWithParts:@[messagePart1] options:nil error:nil];
+    LYRMessageMock *message1 = [client newMessageWithParts:[NSSet setWithObject:messagePart1] options:nil error:nil];
     [conversation1 sendMessage:message1 error:nil];
     
     LYRConversationMock *conversation2 = [client newConversationWithParticipants:participants options:nil error:nil];
     
     LYRMessagePartMock *messagePart2 = [LYRMessagePartMock messagePartWithText:@"How are you?"];
-    LYRMessageMock *message2 = [client newMessageWithParts:@[messagePart2] options:nil error:nil];
+    LYRMessageMock *message2 = [client newMessageWithParts:[NSSet setWithObject:messagePart2] options:nil error:nil];
     [conversation2 sendMessage:message2 error:nil];
 
     LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];

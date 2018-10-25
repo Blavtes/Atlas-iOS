@@ -189,7 +189,7 @@ CGSize  ATLSizeFromOriginalSizeWithConstraint(CGSize originalSize, CGFloat const
 
 #pragma mark - Message Utilities
 
-LYRMessage *ATLMessageForParts(LYRClient *layerClient, NSArray *messageParts, NSString *pushText, NSString *pushSound)
+LYRMessage *ATLMessageForParts(LYRClient *layerClient, NSSet *messageParts, NSString *pushText, NSString *pushSound)
 {
     LYRPushNotificationConfiguration *defaultConfiguration = [LYRPushNotificationConfiguration new];
     defaultConfiguration.alert = pushText;
@@ -208,15 +208,15 @@ LYRMessage *ATLMessageForParts(LYRClient *layerClient, NSArray *messageParts, NS
 
 #pragma mark - Message Parts Utilities
 
-NSArray *ATLMessagePartsWithMediaAttachment(ATLMediaAttachment *mediaAttachment)
+NSSet *ATLMessagePartsWithMediaAttachment(ATLMediaAttachment *mediaAttachment)
 {
-    NSMutableArray *messageParts = [NSMutableArray array];
+    NSMutableSet *messageParts = [NSMutableSet set];
     if (!mediaAttachment.mediaInputStream) {
         @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Cannot create an LYRMessagePart with `nil` mediaInputStream." userInfo:nil];
     }
     
     if ([mediaAttachment.mediaMIMEType isEqualToString:ATLMIMETypeTextPlain]) {
-        return @[[LYRMessagePart messagePartWithText:mediaAttachment.textRepresentation]];
+        return [NSSet setWithObject:[LYRMessagePart messagePartWithText:mediaAttachment.textRepresentation]];
     }
     
     // Create the message part for the main media (should be on index zero).
@@ -237,7 +237,7 @@ NSArray *ATLMessagePartsWithMediaAttachment(ATLMediaAttachment *mediaAttachment)
 LYRMessagePart *ATLMessagePartForMIMEType(LYRMessage *message, NSString *MIMEType)
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"MIMEType == %@", MIMEType];
-    return [[message.parts filteredArrayUsingPredicate:predicate] firstObject];
+    return [[message.parts filteredSetUsingPredicate:predicate] anyObject];
 }
 
 #pragma mark - Image Capture Utilities

@@ -110,8 +110,8 @@ NSString *const LYRConversationOptionsMetadataKey = @"metadata";
     } else {
         message.position = ((int)self.lastMessage.position + 1);
     }
-    if (![message.parts.firstObject data] && [message.parts.firstObject inputStream]) {
-        NSMutableArray *parts = [NSMutableArray new];
+    if (![message.parts.anyObject data] && [message.parts.anyObject inputStream]) {
+        NSMutableSet *parts = [NSMutableSet new];
         for (LYRMessagePart *part in message.parts) {
             NSData *data = MediaAttachmentDataFromInputStream(part.inputStream);
             LYRMessagePartMock *mock = [LYRMessagePartMock messagePartWithMIMEType:part.MIMEType data:data];

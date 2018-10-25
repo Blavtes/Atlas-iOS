@@ -1,5 +1,23 @@
 # Atlas Changelog
 
+## 1.2.1
+
+### Bug Fixes
+
+* Fixes a UI issue where messages could become hidden behind the navigation bar for new conversations. [IOS-3232]
+
+## 1.2.0
+
+### Enhancements
+
+* Adds support for the newer versions of LayerKit (~> 4.0.0). [IOS-3413]
+
+## 1.1.5
+
+### Bug Fixes
+
+* Fixes an error when installing Atlas via Carthage.
+
 ## 1.1.4
 
 ### Bug fixes

@@ -5,6 +5,13 @@
 [![Pod Platform](http://img.shields.io/cocoapods/p/Atlas.svg?style=flat)](http://cocoadocs.org/docsets/Atlas/)
 [![Pod License](http://img.shields.io/cocoapods/l/Atlas.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
+
+## Just Starting?
+
+Use our new XDK! The XDK enables a richer messaging experience and new features will be added there. See the repository at https://github.com/layerhq/iOS-XDK. Don't worry, Atlas-iOS will still be supported in the meantime.
+
+# Atlas
+
 Atlas is a lightweight, flexible set of user interface components designed to enable developers to quickly and easily integrate native communications experiences into their applications. It was designed and built from the ground up to integrate with [LayerKit](https://github.com/layerhq/releases-ios#layerkit), the native iOS SDK for accessing the [Layer](https://layer.com) communications platform. LayerKit provides developers with a simple, object oriented interface to the rich messaging capabilities provided by the Layer platform. Atlas, in turn, provides ready-made UI components that expose these capabilities directly to users.
 
 ![Walkthrough](Examples/Screenshots/walkthrough.gif)

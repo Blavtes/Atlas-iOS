@@ -35,7 +35,7 @@
 
 @implementation LYRMessageMock
 
-- (id)initWithMessageParts:(NSArray *)messageParts senderID:(NSString *)senderID
+- (id)initWithMessageParts:(NSSet *)messageParts senderID:(NSString *)senderID
 {
     self = [super init];
     if (self) {
@@ -46,7 +46,7 @@
     return self;    
 }
 
-- (id)initWithMessageParts:(NSArray *)messageParts senderName:(NSString *)senderName
+- (id)initWithMessageParts:(NSSet *)messageParts senderName:(NSString *)senderName
 {
     self = [super init];
     if (self) {
@@ -57,7 +57,7 @@
     return self;
 }
 
-+ (instancetype)newMessageWithParts:(NSArray *)messageParts senderID:(NSString *)senderID
++ (instancetype)newMessageWithParts:(NSSet *)messageParts senderID:(NSString *)senderID
 {
     LYRMessageMock *mock = [[self alloc] initWithMessageParts:messageParts senderID:senderID];
     mock.identifier = [NSURL URLWithString:[[NSUUID UUID] UUIDString]];
@@ -67,7 +67,7 @@
     return mock;
 }
 
-+ (instancetype)newMessageWithParts:(NSArray *)messageParts senderName:(NSString *)senderName
++ (instancetype)newMessageWithParts:(NSSet *)messageParts senderName:(NSString *)senderName
 {
     LYRMessageMock *mock = [[self alloc] initWithMessageParts:messageParts senderName:senderName];
     mock.identifier = [NSURL URLWithString:[[NSUUID UUID] UUIDString]];

@@ -117,7 +117,7 @@
 
 - (void)sendMessagePart:(LYRMessagePartMock *)messagePart toConversation:(LYRConversationMock *)conversation fromUserID:(NSString *)userID
 {
-    LYRMessageMock *message4 = [LYRMessageMock newMessageWithParts:@[messagePart] senderID:userID];
+    LYRMessageMock *message4 = [LYRMessageMock newMessageWithParts:[NSSet setWithObject:messagePart] senderID:userID];
     [conversation sendMessage:message4 error:nil];
 }
 

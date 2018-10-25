@@ -72,12 +72,12 @@ NSString *const LYRMockObjectChangeChangeTypeKey = @"mockObjectChangeChangeTypeK
     return [LYRConversationMock newConversationWithParticipants:allParticipants options:options];
 }
 
-- (LYRMessageMock *)newMessageWithParts:(NSArray *)messageParts options:(NSDictionary *)options error:(NSError *__autoreleasing *)error
+- (LYRMessageMock *)newMessageWithParts:(NSSet *)messageParts options:(NSDictionary *)options error:(NSError *__autoreleasing *)error
 {
     return [LYRMessageMock newMessageWithParts:messageParts senderID:self.authenticatedUserID];
 }
 
-- (LYRMessageMock *)newPlatformMessageWithParts:(NSArray *)messageParts senderName:(NSString *)senderName options:(NSDictionary *)options error:(NSError *__autoreleasing *)error
+- (LYRMessageMock *)newPlatformMessageWithParts:(NSSet *)messageParts senderName:(NSString *)senderName options:(NSDictionary *)options error:(NSError *__autoreleasing *)error
 {
     return [LYRMessageMock newMessageWithParts:messageParts senderName:senderName];
 }

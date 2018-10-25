@@ -85,7 +85,7 @@ extern NSString *const ATLMessageInputToolbarSendButton;
     [self setRootViewController:self.viewController];
     
     LYRMessagePart *part = [LYRMessagePart messagePartWithText:@"Hey Dude"];
-    LYRMessageMock *message = [LYRMessageMock newMessageWithParts:@[part] senderID:[ATLUserMock userWithMockUserName:ATLMockUserNameKlemen].userID];
+    LYRMessageMock *message = [LYRMessageMock newMessageWithParts:[NSSet setWithObject:part] senderID:[ATLUserMock userWithMockUserName:ATLMockUserNameKlemen].userID];
     [self.conversation sendMessage:message error:nil];
     [tester waitForViewWithAccessibilityLabel:@"Hey Dude"];
 }
@@ -273,7 +273,7 @@ extern NSString *const ATLMessageInputToolbarSendButton;
         LYRMessage *message;
         [invocation getArgument:&message atIndex:3];
         expect(message).to.beKindOf([LYRMessageMock class]);
-        LYRMessagePart *messagePart = message.parts[0];
+        LYRMessagePart *messagePart = message.parts.anyObject;
         expect(messagePart.data).toNot.beNil();
     }] conversationViewController:[OCMArg any] didSendMessage:[OCMArg any]];
     
@@ -348,7 +348,7 @@ extern NSString *const ATLMessageInputToolbarSendButton;
     
     NSString *testMessageText = @"This is a test message";
     LYRMessagePart *part = [LYRMessagePart messagePartWithText:testMessageText];
-    LYRMessageMock *newMessage = [self.testInterface.layerClient newMessageWithParts:@[part] options:nil error:nil];
+    LYRMessageMock *newMessage = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:part] options:nil error:nil];
     __block NSOrderedSet *messages = [[NSOrderedSet alloc] initWithObject:newMessage];
     [[[delegateMock expect] andDo:^(NSInvocation *invocation) {
         [invocation retainArguments];
@@ -445,7 +445,7 @@ extern NSString *const ATLMessageInputToolbarSendButton;
     self.conversation = [self.testInterface conversationWithParticipants:[NSSet setWithObject:mockUser2.userID] lastMessageText:nil];
     
     LYRMessagePartMock *part = [LYRMessagePartMock messagePartWithText:@"Test"];
-    LYRMessageMock *message = [layerClient newMessageWithParts:@[part] options:nil error:nil];
+    LYRMessageMock *message = [layerClient newMessageWithParts:[NSSet setWithObject:part] options:nil error:nil];
     [self.conversation sendMessage:message error:nil];
     
     [self setupConversationViewController];
@@ -461,7 +461,7 @@ extern NSString *const ATLMessageInputToolbarSendButton;
     [self.conversation addParticipants:[NSSet setWithObject:mockUser2.userID] error:nil];
     
     LYRMessagePartMock *part = [LYRMessagePartMock messagePartWithText:@"Test"];
-    LYRMessageMock *message = [layerClient newMessageWithParts:@[part] options:nil error:nil];
+    LYRMessageMock *message = [layerClient newMessageWithParts:[NSSet setWithObject:part] options:nil error:nil];
     [self.conversation sendMessage:message error:nil];
     
     [self setupConversationViewController];
@@ -477,7 +477,7 @@ extern NSString *const ATLMessageInputToolbarSendButton;
     [self.conversation addParticipants:[NSSet setWithObject:mockUser2.userID] error:nil];
     
     LYRMessagePartMock *part = [LYRMessagePartMock messagePartWithText:@"Test"];
-    LYRMessageMock *message = [layerClient newMessageWithParts:@[part] options:nil error:nil];
+    LYRMessageMock *message = [layerClient newMessageWithParts:[NSSet setWithObject:part] options:nil error:nil];
     [self.conversation sendMessage:message error:nil];
     
     [self setupConversationViewController];
@@ -494,7 +494,7 @@ extern NSString *const ATLMessageInputToolbarSendButton;
     [self.conversation addParticipants:[NSSet setWithObject:mockUser2.userID] error:nil];
     
     LYRMessagePartMock *part = [LYRMessagePartMock messagePartWithText:@"Test"];
-    LYRMessageMock *message = [layerClient newPlatformMessageWithParts:@[part] senderName:@"Platform" options:nil error:nil];
+    LYRMessageMock *message = [layerClient newPlatformMessageWithParts:[NSSet setWithObject:part] senderName:@"Platform" options:nil error:nil];
     [self.conversation sendMessage:message error:nil];
     
     [self setupConversationViewController];
@@ -507,7 +507,7 @@ extern NSString *const ATLMessageInputToolbarSendButton;
 - (void)testToVerifyUserAvatarImageIsDisplayed
 {
     LYRMessagePartMock *part = [LYRMessagePartMock messagePartWithText:@"Test"];
-    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:@[part] options:nil error:nil];
+    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:part] options:nil error:nil];
     [self.conversation sendMessage:message error:nil];
     
     [self setupConversationViewController];
@@ -530,17 +530,17 @@ extern NSString *const ATLMessageInputToolbarSendButton;
     NSDate *oneMinuteTwoSecondsAgo = [now dateByAddingTimeInterval:oneMinuteTwoSecondsAgoInterval];
     
     LYRMessagePartMock *partOne = [LYRMessagePartMock messagePartWithText:@"One"];
-    LYRMessageMock *messageOne = [self.testInterface.layerClient newMessageWithParts:@[partOne] options:nil error:nil];
+    LYRMessageMock *messageOne = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:partOne] options:nil error:nil];
     [self.conversation sendMessage:messageOne error:nil];
     messageOne.receivedAt = oneMinuteTwoSecondsAgo;
     
     LYRMessagePartMock *partTwo = [LYRMessagePartMock messagePartWithText:@"Two"];
-    LYRMessageMock *messageTwo = [self.testInterface.layerClient newMessageWithParts:@[partTwo] options:nil error:nil];
+    LYRMessageMock *messageTwo = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:partTwo] options:nil error:nil];
     [self.conversation sendMessage:messageTwo error:nil];
     messageTwo.receivedAt = oneSecondAgo;
     
     LYRMessagePartMock *partThree = [LYRMessagePartMock messagePartWithText:@"Three"];
-    LYRMessageMock *messageThree = [self.testInterface.layerClient newMessageWithParts:@[partThree] options:nil error:nil];
+    LYRMessageMock *messageThree = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:partThree] options:nil error:nil];
     [self.conversation sendMessage:messageThree error:nil];
     messageThree.receivedAt = now;
     
@@ -570,17 +570,17 @@ extern NSString *const ATLMessageInputToolbarSendButton;
     NSDate *oneMinuteTwoSecondsAgo = [now dateByAddingTimeInterval:oneMinuteTwoSecondsAgoInterval];
     
     LYRMessagePartMock *partOne = [LYRMessagePartMock messagePartWithText:@"One"];
-    LYRMessageMock *messageOne = [self.testInterface.layerClient newMessageWithParts:@[partOne] options:nil error:nil];
+    LYRMessageMock *messageOne = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:partOne] options:nil error:nil];
     [self.conversation sendMessage:messageOne error:nil];
     messageOne.receivedAt = oneMinuteTwoSecondsAgo;
     
     LYRMessagePartMock *partTwo = [LYRMessagePartMock messagePartWithText:@"Two"];
-    LYRMessageMock *messageTwo = [self.testInterface.layerClient newMessageWithParts:@[partTwo] options:nil error:nil];
+    LYRMessageMock *messageTwo = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:partTwo] options:nil error:nil];
     [self.conversation sendMessage:messageTwo error:nil];
     messageTwo.receivedAt = oneSecondAgo;
     
     LYRMessagePartMock *partThree = [LYRMessagePartMock messagePartWithText:@"Three"];
-    LYRMessageMock *messageThree = [self.testInterface.layerClient newMessageWithParts:@[partThree] options:nil error:nil];
+    LYRMessageMock *messageThree = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:partThree] options:nil error:nil];
     [self.conversation sendMessage:messageThree error:nil];
     messageThree.receivedAt = now;
     
@@ -610,17 +610,17 @@ extern NSString *const ATLMessageInputToolbarSendButton;
     NSDate *oneMinuteTwoSecondsAgo = [now dateByAddingTimeInterval:oneMinuteTwoSecondsAgoInterval];
     
     LYRMessagePartMock *partOne = [LYRMessagePartMock messagePartWithText:@"One"];
-    LYRMessageMock *messageOne = [self.testInterface.layerClient newMessageWithParts:@[partOne] options:nil error:nil];
+    LYRMessageMock *messageOne = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:partOne] options:nil error:nil];
     [self.conversation sendMessage:messageOne error:nil];
     messageOne.receivedAt = oneMinuteTwoSecondsAgo;
     
     LYRMessagePartMock *partTwo = [LYRMessagePartMock messagePartWithText:@"Two"];
-    LYRMessageMock *messageTwo = [self.testInterface.layerClient newMessageWithParts:@[partTwo] options:nil error:nil];
+    LYRMessageMock *messageTwo = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:partTwo] options:nil error:nil];
     [self.conversation sendMessage:messageTwo error:nil];
     messageTwo.receivedAt = oneSecondAgo;
     
     LYRMessagePartMock *partThree = [LYRMessagePartMock messagePartWithText:@"Three"];
-    LYRMessageMock *messageThree = [self.testInterface.layerClient newMessageWithParts:@[partThree] options:nil error:nil];
+    LYRMessageMock *messageThree = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:partThree] options:nil error:nil];
     [self.conversation sendMessage:messageThree error:nil];
     messageThree.receivedAt = now;
     
@@ -811,7 +811,7 @@ extern NSString *const ATLMessageInputToolbarSendButton;
 {
     LYRMessagePartMock *part = [LYRMessagePartMock messagePartWithText:messageText];
     NSError *error;
-    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:@[part] options:nil error:&error];
+    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:part] options:nil error:&error];
     expect(error).to.beNil;
     [self.conversation sendMessage:message error:&error];
     expect(error).to.beNil;

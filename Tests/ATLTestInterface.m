@@ -85,7 +85,7 @@ LYRMessagePartMock *ATLMessagePartWithLocation(CLLocation *location)
     LYRConversationMock *conversation = [self.layerClient newConversationWithParticipants:participants options:nil error:nil];
     if (lastMessageText) {
         LYRMessagePart *part = [LYRMessagePart messagePartWithText:lastMessageText];
-        LYRMessageMock *message = [self.layerClient newMessageWithParts:@[part] options:nil error:nil];
+        LYRMessageMock *message = [self.layerClient newMessageWithParts:[NSSet setWithObject:part] options:nil error:nil];
         [conversation sendMessage:message error:nil];
     }
     return conversation;

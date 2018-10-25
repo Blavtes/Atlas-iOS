@@ -657,23 +657,27 @@ NSString *const ATLConversationListViewControllerDeletionModeEveryone = @"Everyo
 {
     NSString *lastMessageText;
     LYRMessage *lastMessage = conversation.lastMessage;
-    LYRMessagePart *messagePart = lastMessage.parts[0];
-    if ([messagePart.MIMEType isEqualToString:ATLMIMETypeTextPlain]) {
-        lastMessageText = [[NSString alloc] initWithData:messagePart.data encoding:NSUTF8StringEncoding];
-    } else if ([messagePart.MIMEType isEqualToString:ATLMIMETypeImageJPEG]) {
-        lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.text.key", ATLImageMIMETypePlaceholderText, nil);
-    } else if ([messagePart.MIMEType isEqualToString:ATLMIMETypeImagePNG]) {
-        lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.png.key", ATLImageMIMETypePlaceholderText, nil);
-    } else if ([messagePart.MIMEType isEqualToString:ATLMIMETypeImageGIF]) {
-        lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.gif.key", ATLGIFMIMETypePlaceholderText, nil);
-    } else if ([messagePart.MIMEType isEqualToString:ATLMIMETypeLocation]) {
-        lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.location.key", ATLLocationMIMETypePlaceholderText, nil);
-    } else if ([messagePart.MIMEType isEqualToString:ATLMIMETypeVideoMP4]) {
-        lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.video.key", ATLVideoMIMETypePlaceholderText, nil);
-    } else {
-        lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.default.key", ATLImageMIMETypePlaceholderText, nil);
+    for (LYRMessagePart *messagePart in lastMessage.parts) {
+        if ([messagePart.MIMEType isEqualToString:ATLMIMETypeTextPlain]) {
+            lastMessageText = [[NSString alloc] initWithData:messagePart.data encoding:NSUTF8StringEncoding];
+        } else if ([messagePart.MIMEType isEqualToString:ATLMIMETypeImageJPEG]) {
+            lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.text.key", ATLImageMIMETypePlaceholderText, nil);
+        } else if ([messagePart.MIMEType isEqualToString:ATLMIMETypeImagePNG]) {
+            lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.png.key", ATLImageMIMETypePlaceholderText, nil);
+        } else if ([messagePart.MIMEType isEqualToString:ATLMIMETypeImageGIF]) {
+            lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.gif.key", ATLGIFMIMETypePlaceholderText, nil);
+        } else if ([messagePart.MIMEType isEqualToString:ATLMIMETypeLocation]) {
+            lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.location.key", ATLLocationMIMETypePlaceholderText, nil);
+        } else if ([messagePart.MIMEType isEqualToString:ATLMIMETypeVideoMP4]) {
+            lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.video.key", ATLVideoMIMETypePlaceholderText, nil);
+        } else {
+            lastMessageText = ATLLocalizedString(@"atl.conversationlist.lastMessage.text.default.key", ATLImageMIMETypePlaceholderText, nil);
+        }
+        if (lastMessageText) {
+            break;
+        }
     }
-    return lastMessageText;
+    return lastMessageText ?: @"no content";
 }
 
 - (void)deleteConversationAtIndexPath:(NSIndexPath *)indexPath withDeletionMode:(LYRDeletionMode)deletionMode

@@ -89,7 +89,7 @@ extern NSString *const ATLConversationCollectionViewAccessibilityIdentifier;
 {
     NSString *test = @"test";
     LYRMessagePartMock *part = [LYRMessagePartMock messagePartWithText:@"test"];
-    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:@[part] options:nil error:nil];
+    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:part] options:nil error:nil];
     
     ATLMessageCollectionViewCell *cell = [ATLMessageCollectionViewCell new];
     [cell presentMessage:(LYRMessage *)message];
@@ -100,7 +100,7 @@ extern NSString *const ATLConversationCollectionViewAccessibilityIdentifier;
 - (void)testToVerifyMessageBubbleViewWithImage
 {
     LYRMessagePartMock *imagePart = ATLMessagePartWithJPEGImage([UIImage new]);
-    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:@[imagePart] options:nil error:nil];
+    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:imagePart] options:nil error:nil];
     
     ATLMessageCollectionViewCell *cell = [ATLMessageCollectionViewCell new];
     [cell presentMessage:(LYRMessage *)message];
@@ -111,7 +111,7 @@ extern NSString *const ATLConversationCollectionViewAccessibilityIdentifier;
 - (void)testToVerifyMessageBubbleViewWithGIF
 {
     LYRMessagePartMock *imagePart = ATLMessagePartWithGIFImage([UIImage new]);
-    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:@[imagePart] options:nil error:nil];
+    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:imagePart] options:nil error:nil];
     
     ATLMessageCollectionViewCell *cell = [ATLMessageCollectionViewCell new];
     [cell presentMessage:(LYRMessage *)message];
@@ -124,7 +124,7 @@ extern NSString *const ATLConversationCollectionViewAccessibilityIdentifier;
     CLLocation *location = [[CLLocation alloc] initWithLatitude:37.7833 longitude:122.4167];
     
     LYRMessagePartMock *locationPart = ATLMessagePartWithLocation(location);
-    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:@[locationPart] options:nil error:nil];
+    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:locationPart] options:nil error:nil];
 
     ATLMessageCollectionViewCell *cell = [ATLMessageCollectionViewCell new];
     [cell presentMessage:(LYRMessage *)message];
@@ -137,7 +137,8 @@ extern NSString *const ATLConversationCollectionViewAccessibilityIdentifier;
     NSString *link = @"www.layer.com";
     NSString *phoneNumber = @"734-769-6526";
     NSString *linkAndPhoneNumber = [NSString stringWithFormat:@"%@ and %@", link, phoneNumber];
-    LYRMessagePartMock *part = [LYRMessagePartMock messagePartWithText:linkAndPhoneNumber];    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:@[part] options:nil error:nil];
+    LYRMessagePartMock *part = [LYRMessagePartMock messagePartWithText:linkAndPhoneNumber];
+    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:part] options:nil error:nil];
     
     ATLMessageCollectionViewCell *cell = [ATLMessageCollectionViewCell new];
     [cell presentMessage:(LYRMessage *)message];
@@ -156,7 +157,7 @@ extern NSString *const ATLConversationCollectionViewAccessibilityIdentifier;
     NSString *link = @"www.layer.com";
     NSString *phoneNumber = @"734-769-6526";
     NSString *linkAndPhoneNumber = [NSString stringWithFormat:@"%@ and %@", link, phoneNumber];
-    LYRMessagePartMock *part = [LYRMessagePartMock messagePartWithText:linkAndPhoneNumber];    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:@[part] options:nil error:nil];
+    LYRMessagePartMock *part = [LYRMessagePartMock messagePartWithText:linkAndPhoneNumber];    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:part] options:nil error:nil];
     
     ATLMessageCollectionViewCell *cell = [ATLMessageCollectionViewCell new];
     cell.messageTextCheckingTypes = NSTextCheckingTypePhoneNumber;
@@ -177,7 +178,7 @@ extern NSString *const ATLConversationCollectionViewAccessibilityIdentifier;
     NSString *phoneNumber = @"734-769-6526";
     NSString *linkAndPhoneNumber = [NSString stringWithFormat:@"%@ and %@", link, phoneNumber];
     LYRMessagePartMock *part = [LYRMessagePartMock messagePartWithText:linkAndPhoneNumber];
-    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:@[part] options:nil error:nil];
+    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:part] options:nil error:nil];
     
     ATLMessageCollectionViewCell *cell = [ATLMessageCollectionViewCell new];
     cell.messageTextCheckingTypes = NSTextCheckingTypeLink | NSTextCheckingTypePhoneNumber;
@@ -314,7 +315,7 @@ extern NSString *const ATLConversationCollectionViewAccessibilityIdentifier;
     LYRClientMock *layerClient = [LYRClientMock layerClientMockWithAuthenticatedUserID:mockUser.userID];
     
     LYRMessagePartMock *part = [LYRMessagePartMock messagePartWithText:@"test"];
-    LYRMessageMock *message = [layerClient newMessageWithParts:@[part] options:nil error:nil];
+    LYRMessageMock *message = [layerClient newMessageWithParts:[NSSet setWithObject:part] options:nil error:nil];
     [tester waitForTimeInterval:0.5];
     [self.conversation sendMessage:message error:nil];
 
@@ -326,7 +327,7 @@ extern NSString *const ATLConversationCollectionViewAccessibilityIdentifier;
 - (void)sendMessageWithText:(NSString *)text
 {
     LYRMessagePartMock *part = [LYRMessagePartMock messagePartWithText:text];
-    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:@[part] options:nil error:nil];
+    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:part] options:nil error:nil];
     [self.conversation sendMessage:message error:nil];
 }
 
@@ -336,7 +337,7 @@ extern NSString *const ATLConversationCollectionViewAccessibilityIdentifier;
     LYRClientMock *layerClient = [LYRClientMock layerClientMockWithAuthenticatedUserID:mockUser.userID];
     
     LYRMessagePartMock *part = [LYRMessagePartMock messagePartWithText:text];
-    LYRMessageMock *message = [layerClient newMessageWithParts:@[part] options:nil error:nil];
+    LYRMessageMock *message = [layerClient newMessageWithParts:[NSSet setWithObject:part] options:nil error:nil];
     [self.conversation sendMessage:message error:nil];
     [tester waitForAnimationsToFinish];
 }

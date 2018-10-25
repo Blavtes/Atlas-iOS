@@ -143,7 +143,7 @@ NSString *ATLLastMessageText = @"ATLLastMessageText";
 {
     [self createNewConversation];
     LYRMessagePartMock *imagePart = ATLMessagePartWithJPEGImage([UIImage new]);
-    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:@[imagePart] options:nil error:nil];
+    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:imagePart] options:nil error:nil];
     [self.conversation sendMessage:message error:nil];
     [tester waitForViewWithAccessibilityLabel:ATLImageMIMETypePlaceholderText];
 }
@@ -153,7 +153,7 @@ NSString *ATLLastMessageText = @"ATLLastMessageText";
     [self createNewConversation];
     CLLocation *location = [[CLLocation alloc] initWithLatitude:123.00 longitude:54.00];
     ATLMediaAttachment *attachement = [ATLMediaAttachment mediaAttachmentWithLocation:location];
-    NSArray *parts = ATLMessagePartsWithMediaAttachment(attachement);
+    NSSet *parts = ATLMessagePartsWithMediaAttachment(attachement);
     LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:parts options:nil error:nil];
     [self.conversation sendMessage:message error:nil];
     [tester waitForViewWithAccessibilityLabel:ATLLocationMIMETypePlaceholderText];
@@ -163,7 +163,7 @@ NSString *ATLLastMessageText = @"ATLLastMessageText";
 {
     NSSet *participants = [NSSet setWithObject:[ATLUserMock userWithMockUserName:ATLMockUserNameKlemen].userID];
     LYRMessagePartMock *part = [LYRMessagePartMock messagePartWithText:ATLLastMessageText];
-    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:@[part] options:nil error:nil];
+    LYRMessageMock *message = [self.testInterface.layerClient newMessageWithParts:[NSSet setWithObject:part] options:nil error:nil];
     self.conversation = [self.testInterface.layerClient newConversationWithParticipants:participants options:nil error:nil];
     [self.conversation sendMessage:message error:nil];
 }

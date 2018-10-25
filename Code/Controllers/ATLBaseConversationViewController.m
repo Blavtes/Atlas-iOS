@@ -319,7 +319,16 @@ static CGFloat const ATLMaxScrollDistanceFromBottom = 150;
     CGFloat collectionViewFrameHeight = self.collectionView.frame.size.height;
     CGFloat collectionViewBottomInset = self.collectionView.contentInset.bottom;
     CGFloat collectionViewTopInset = self.collectionView.contentInset.top;
-    CGPoint offset = CGPointMake(0, MAX(-collectionViewTopInset, contentSizeHeight - (collectionViewFrameHeight - collectionViewBottomInset)));
+    CGFloat calculatedHeight = contentSizeHeight - (collectionViewFrameHeight - collectionViewBottomInset);
+    
+    if (@available(iOS 11, *)) {
+        if (collectionViewTopInset > calculatedHeight) {
+            CGFloat topBarHeight = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+            collectionViewTopInset += topBarHeight;
+        }
+    }
+    
+    CGPoint offset = CGPointMake(0, MAX(-collectionViewTopInset, calculatedHeight));
     return offset;
 }
 
